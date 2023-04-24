@@ -12,34 +12,41 @@ public class Target : MonoBehaviour
     private float d = 4;
     public ParticleSystem explosionParticle;
     public int pointValue;
-    void Start()
+    private void Start()
     {
         targetRB = GetComponent<Rigidbody>();
         targetRB.AddForce(RandomForce(), ForceMode.Impulse);
         targetRB.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(), ForceMode.Impulse);
-	gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+	    gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         transform.position = RandomCreation();
-    }
-    Vector3 RandomForce()
-    {
-        return Vector3.up * Random.Range(b, a);
-    }
-    float RandomTorque()
-    {
-        return Random.Range(-c, c);
-    }
-    Vector3 RandomCreation()
-    {
-        return new Vector3(Random.Range(-d, d), Random.Range(-c, c));
     }
     private void OnMouseDown()
     {
-        Destroy(gameObject);
-	Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
-	gameManager.UpdateScore(pointValue);
+        if (gameManager.isGameActive)
+        {
+            Destroy(gameObject);
+            Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
+            gameManager.UpdateScore(pointValue);
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
+        if (!gameObject.CompareTag("BadTarget"))
+        {
+            gameManager.GameOver();
+        }
+    }
+    private Vector3 RandomForce()
+    {
+        return Vector3.up * Random.Range(b, a);
+    }
+    private Vector3 RandomCreation()
+    {
+        return new Vector3(Random.Range(-d, d), Random.Range(-c, c));
+    }
+    private float RandomTorque()
+    {
+        return Random.Range(-c, c);
     }
 }
