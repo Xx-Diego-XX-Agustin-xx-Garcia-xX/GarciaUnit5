@@ -7,9 +7,8 @@ public class Target : MonoBehaviour
     private Rigidbody targetRB;
     private GameManager gameManager;
     private float a = 16;
-    private float b = 12;
-    private float c = 8;
-    private float d = 4;
+    private float b = 8;
+    private float c = 4;
     public ParticleSystem explosionParticle;
     public int pointValue;
     private void Start()
@@ -19,6 +18,13 @@ public class Target : MonoBehaviour
         targetRB.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(), ForceMode.Impulse);
 	    gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         transform.position = RandomCreation();
+    }
+    private void Update()
+    {
+	if (gameManager.score < 0)
+	{
+            gameManager.GameOver();
+        }
     }
     private void OnMouseDown()
     {
@@ -43,10 +49,10 @@ public class Target : MonoBehaviour
     }
     private Vector3 RandomCreation()
     {
-        return new Vector3(Random.Range(-d, d), Random.Range(-c, c));
+        return new Vector3(Random.Range(-c, c), Random.Range(-c, c));
     }
     private float RandomTorque()
     {
-        return Random.Range(-c, c);
+        return Random.Range(-b, b);
     }
 }

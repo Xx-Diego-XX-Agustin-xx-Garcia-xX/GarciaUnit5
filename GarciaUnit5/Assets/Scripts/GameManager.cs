@@ -10,10 +10,10 @@ public class GameManager : MonoBehaviour
     public List<GameObject> targets;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameoverText;
-    public bool isGameActive;
     public Button restartButton;
+    public bool isGameActive;
+    public int score;
     private float creationRate = 1.0f;
-    private int score;
     private void Start()
     {
         isGameActive = true;
