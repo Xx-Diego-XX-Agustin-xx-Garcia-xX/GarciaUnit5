@@ -10,6 +10,8 @@ public class Target : MonoBehaviour
     private float b = 8;
     private float c = 4;
     public ParticleSystem explosionParticle;
+    public AudioClip bomberClip;
+    public AudioSource audioSource;
     public int pointValue;
     private void Start()
     {
@@ -21,8 +23,8 @@ public class Target : MonoBehaviour
     }
     private void Update()
     {
-	if (gameManager.score < 0)
-	{
+	    if (gameManager.score < 0)
+	    {
             gameManager.GameOver();
         }
     }
@@ -33,6 +35,7 @@ public class Target : MonoBehaviour
             Destroy(gameObject);
             Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
             gameManager.UpdateScore(pointValue);
+            PlaySound(bomberClip);
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -42,6 +45,10 @@ public class Target : MonoBehaviour
         {
             gameManager.UpdateLives(-1);
         }
+    }
+    private void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
     private Vector3 RandomForce()
     {

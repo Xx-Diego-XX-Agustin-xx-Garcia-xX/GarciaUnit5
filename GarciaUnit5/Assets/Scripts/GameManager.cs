@@ -13,12 +13,18 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameoverText;
     public TextMeshProUGUI livesText;
+    public AudioClip gameoverClip;
+    public AudioSource audioSource;
     public Button restartButton;
     public int score;
     public bool isGameActive;
     private bool paused;
     private int lives;
     private float creationRate = 1.0f;
+    public void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     public void StartGame(int difficulty)
     {
         isGameActive = true;
@@ -28,6 +34,10 @@ public class GameManager : MonoBehaviour
         UpdateScore(0);
         UpdateLives(5);
         titleScreen.gameObject.SetActive(false);
+    }
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
     public void ChangePaused()
     {
@@ -70,6 +80,7 @@ public class GameManager : MonoBehaviour
         gameoverText.gameObject.SetActive(true);
         isGameActive = false;
         restartButton.gameObject.SetActive(true);
+        PlaySound(gameoverClip);
     }
     public void RestartGame()
     {

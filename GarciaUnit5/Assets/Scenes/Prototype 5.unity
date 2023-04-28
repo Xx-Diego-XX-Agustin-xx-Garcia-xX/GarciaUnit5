@@ -2493,6 +2493,8 @@ MonoBehaviour:
   scoreText: {fileID: 1019815298}
   gameoverText: {fileID: 1522186544}
   livesText: {fileID: 573162589}
+  gameoverClip: {fileID: 8300000, guid: a5f5eac4e770d50458ea97c1c74689cc, type: 3}
+  audioSource: {fileID: 1714166536}
   restartButton: {fileID: 1807803993}
   score: 0
   isGameActive: 0
@@ -2525,7 +2527,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
