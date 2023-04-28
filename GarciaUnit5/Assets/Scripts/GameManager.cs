@@ -8,18 +8,21 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public List<GameObject> targets;
+    public GameObject titleScreen;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameoverText;
     public Button restartButton;
     public bool isGameActive;
     public int score;
     private float creationRate = 1.0f;
-    private void Start()
+    public void StartGame(int difficulty)
     {
         isGameActive = true;
         StartCoroutine(CreateTarget());
         score = 0;
+	creationRate /= difficulty;
         UpdateScore(0);
+	titleScreen.gameObject.SetActive(false);
     }
     public void UpdateScore(int scoreToAdd)
     {
