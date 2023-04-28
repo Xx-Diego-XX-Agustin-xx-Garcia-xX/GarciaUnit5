@@ -9,25 +9,61 @@ public class GameManager : MonoBehaviour
 {
     public List<GameObject> targets;
     public GameObject titleScreen;
+    public GameObject pauseScreen;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameoverText;
+    public TextMeshProUGUI livesText;
     public Button restartButton;
-    public bool isGameActive;
     public int score;
+    public bool isGameActive;
+    private bool paused;
+    private int lives;
     private float creationRate = 1.0f;
     public void StartGame(int difficulty)
     {
         isGameActive = true;
         StartCoroutine(CreateTarget());
         score = 0;
-	creationRate /= difficulty;
+	    creationRate /= difficulty;
         UpdateScore(0);
-	titleScreen.gameObject.SetActive(false);
+        UpdateLives(5);
+        titleScreen.gameObject.SetActive(false);
+    }
+    public void ChangePaused()
+    {
+        if (!paused)
+        {
+            paused = true;
+            pauseScreen.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            paused = false;
+            pauseScreen.SetActive(false);
+            Time.timeScale = 1;
+        }
+    }
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ChangePaused();
+        }
     }
     public void UpdateScore(int scoreToAdd)
     {
 	score += scoreToAdd;
         scoreText.text = "Score: " + score;
+    }
+    public void UpdateLives(int livesChanged)
+    {
+        lives += livesChanged;
+        livesText.text = "Lives: " + lives;
+        if (lives <= 0)
+        {
+            GameOver();
+        }
     }
     public void GameOver()
     {

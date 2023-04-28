@@ -40,7 +40,7 @@ public class Target : MonoBehaviour
         Destroy(gameObject);
         if (!gameObject.CompareTag("BadTarget"))
         {
-            gameManager.GameOver();
+            gameManager.UpdateLives(-1);
         }
     }
     private Vector3 RandomForce()

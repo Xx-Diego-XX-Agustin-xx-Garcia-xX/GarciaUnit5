@@ -11,12 +11,12 @@ public class DifficultyButton : MonoBehaviour
     void Start()
     {
         button = GetComponent<Button>();
-	gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-	button.onClick.AddListener(SetDifficulty);
+	    gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+	    button.onClick.AddListener(SetDifficulty);
     }
     void SetDifficulty()
     {
-	Debug.Log(gameObject.name + " was clicked");
-	gameManager.StartGame(difficulty);
+	    Debug.Log(gameObject.name + " was clicked");
+	    gameManager.StartGame(difficulty);
     }
 }
