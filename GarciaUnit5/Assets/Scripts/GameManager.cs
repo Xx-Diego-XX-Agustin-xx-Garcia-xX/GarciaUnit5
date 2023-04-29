@@ -13,9 +13,12 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameoverText;
     public TextMeshProUGUI livesText;
-    public Button restartButton;
-    public AudioSource gameoverSound;
+    public AudioSource audioSource;
+    public AudioClip decreaseClip;
+    public AudioClip increaseClip;
     public AudioClip gameoverClip;
+    public AudioClip createtargetClip;
+    public Button restartButton;
     public int score;
     public bool isGameActive;
     private bool paused;
@@ -23,7 +26,7 @@ public class GameManager : MonoBehaviour
     private float creationRate = 1.0f;
     public void Start()
     {
-	gameoverSound = GetComponent<AudioSource>();
+	audioSource = GetComponent<AudioSource>();
     }
     public void StartGame(int difficulty)
     {
@@ -34,6 +37,10 @@ public class GameManager : MonoBehaviour
         UpdateScore(0);
         UpdateLives(5);
         titleScreen.gameObject.SetActive(false);
+    }
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
     public void ChangePaused()
     {
@@ -61,6 +68,14 @@ public class GameManager : MonoBehaviour
     {
 	score += scoreToAdd;
         scoreText.text = "Score: " + score;
+        if (scoreToAdd > 0)
+        {
+	    PlaySound(increaseClip);
+	}
+	else if (scoreToAdd < 0)
+	{
+	    PlaySound(decreaseClip);
+	}
     }
     public void UpdateLives(int livesChanged)
     {
@@ -76,7 +91,7 @@ public class GameManager : MonoBehaviour
         gameoverText.gameObject.SetActive(true);
         isGameActive = false;
         restartButton.gameObject.SetActive(true);
-	gameoverSound.PlayOneShot(gameoverClip, 1.0f);
+	PlaySound(gameoverClip);
     }
     public void RestartGame()
     {
@@ -89,6 +104,7 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(creationRate);
             int index = Random.Range(0, targets.Count);
             Instantiate(targets[index]);
+	    PlaySound(createtargetClip);
         }
     }
 }
