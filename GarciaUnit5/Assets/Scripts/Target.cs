@@ -10,15 +10,13 @@ public class Target : MonoBehaviour
     private float b = 8;
     private float c = 4;
     public ParticleSystem explosionParticle;
-    public AudioClip bomberClip;
-    public AudioSource audioSource;
     public int pointValue;
     private void Start()
     {
         targetRB = GetComponent<Rigidbody>();
         targetRB.AddForce(RandomForce(), ForceMode.Impulse);
         targetRB.AddTorque(RandomTorque(), RandomTorque(), RandomTorque(), ForceMode.Impulse);
-	    gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+	gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         transform.position = RandomCreation();
     }
     private void Update()
@@ -35,7 +33,6 @@ public class Target : MonoBehaviour
             Destroy(gameObject);
             Instantiate(explosionParticle, transform.position, explosionParticle.transform.rotation);
             gameManager.UpdateScore(pointValue);
-            PlaySound(bomberClip);
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -45,10 +42,6 @@ public class Target : MonoBehaviour
         {
             gameManager.UpdateLives(-1);
         }
-    }
-    private void PlaySound(AudioClip clip)
-    {
-        audioSource.PlayOneShot(clip);
     }
     private Vector3 RandomForce()
     {
