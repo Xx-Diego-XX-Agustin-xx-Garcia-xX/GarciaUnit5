@@ -2591,7 +2591,7 @@ MonoBehaviour:
   gameoverText: {fileID: 1522186544}
   livesText: {fileID: 573162589}
   audioSource: {fileID: 1593704147}
-  decreaseClip: {fileID: 8300000, guid: 5da815e876eca479280a64aa4a250487, type: 3}
+  decreaseClip: {fileID: 8300000, guid: 3b234b0f6c3574368813d542d3ac2578, type: 3}
   increaseClip: {fileID: 8300000, guid: 589d47c9ca7494950b25d759cef88627, type: 3}
   gameoverClip: {fileID: 8300000, guid: a5f5eac4e770d50458ea97c1c74689cc, type: 3}
   createtargetClip: {fileID: 8300000, guid: 323fb644bf4f90e47841ae201fd9f865, type: 3}
